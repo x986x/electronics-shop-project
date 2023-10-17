@@ -19,6 +19,8 @@ class Item:
         self.quantity = quantity
         Item.all.append(self)
 
+
+
     def __add__(self, other):
         '''
         Складывает два обьекты, относящиеся к
