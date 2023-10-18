@@ -1,5 +1,6 @@
 import pytest
 
+import src.item
 from src.item import Item
 
 @pytest.fixture
@@ -24,3 +25,21 @@ def test_apply_discount(make_item):
     item.apply_discount()
     assert item.price == first_price * item.pay_rate
     assert item.price == 6000.0
+
+def test_set_name(make_item, capsys):
+    item = make_item
+    item.name = "Name"
+    assert item.name == "Name"
+
+    item.name = "NameNameNameNameName"
+    output = capsys.readouterr()
+    assert output.out == "Длина названия товара не" \
+                         "должна превышать 10 символов\n"
+    item.name = ""
+    output = capsys.readouterr()
+    assert output.out == "Длина названия должна иметь" \
+                         "хотябы 1 символ\n"
+
+def test_string_to_number():
+    string = "343"
+    assert Item.string_to_number(string) == 343
