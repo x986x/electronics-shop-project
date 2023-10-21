@@ -43,3 +43,16 @@ def test_set_name(make_item, capsys):
 def test_string_to_number():
     string = "343"
     assert Item.string_to_number(string) == 343
+
+def test_repr():
+    '''Проверка на ожидаемый результат по шаблону '''
+    item = Item('test', 1000, 30)
+
+    assert repr(item) == "Item('test', 1000, 30)"
+
+
+def test_str():
+    '''Проверка на ожидаемый результат по шаблону '''
+    item = Item('test', 1000, 30)
+
+    assert str(item) == 'test'
