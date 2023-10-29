@@ -31,13 +31,13 @@ class Phone(Item):
 
     @number_of_sim.setter
     def number_of_sim(self, value) -> None:
-        '''
+        """
         Устснавливает значение поддерживаемых
         сим-карт, проверяя является ли значение
         положительным. В конечном итоге возвращает
         целое от числа или ошибку, если значение окажется
         отрицательным
-        '''
+        """
         if isinstance(value, int) and value > 0:
             self.__number_of_sim = int(value)
         else:
