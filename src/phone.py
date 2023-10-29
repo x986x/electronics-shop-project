@@ -30,10 +30,15 @@ class Phone(Item):
         return self.__number_of_sim
 
     @number_of_sim.setter
-    def number_of_sim(self, quantity_sim):
-        """
-         Сеттер для проверки number_of_sim на целое и положительное число
-        """
-        if not isinstance(quantity_sim, int) or quantity_sim < 0:
-            raise ValueError('Количество физических SIM-карт должно быть целым числом больше или равно нулю')
-        self.__number_of_sim = quantity_sim
+    def number_of_sim(self, value) -> None:
+        '''
+        Устснавливает значение поддерживаемых
+        сим-карт, проверяя является ли значение
+        положительным. В конечном итоге возвращает
+        целое от числа или ошибку, если значение окажется
+        отрицательным
+        '''
+        if isinstance(value, int) and value > 0:
+            self.__number_of_sim = int(value)
+        else:
+            raise ValueError('Количество физических SIM-карт должно быть целым числом больше нуля.')
