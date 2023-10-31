@@ -7,7 +7,7 @@ def test_phone():
     """Проверка вывода всех данных"""
     phone = Phone("test1", 40000, 10, 2)
     assert phone.name == "test1"
-    assert phone.price == 40
+    assert phone.price == 40000
     assert phone.quantity == 10
     assert phone.number_of_sim == 2
 

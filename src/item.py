@@ -18,7 +18,7 @@ class Item:
         :param quantity: Количество товара в магазине.
         """
         super().__init__()
-        self.__name = name[:10]
+        self.__name = name
         self.price = price
         self.quantity = quantity
 
