@@ -23,6 +23,5 @@ def test_change_language():
     try:
         kb = Keyboard('Dark Project KD87A', 9600, 5)
         kb.language = 'CH'
-    except ValueError as i:
+    except AttributeError as i:
         assert str(i) == "property 'language' of 'Keyboard' object has no setter"
-        print(i)
