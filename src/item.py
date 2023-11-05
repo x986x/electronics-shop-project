@@ -2,6 +2,9 @@ import csv
 import codecs
 
 
+class InstantiateCSVError(Exception):
+    pass
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -87,18 +90,23 @@ class Item:
     def instantiate_from_csv(cls, filename: str) -> None:
         '''инициализируем экземпляры класса Item данными из файла src/items.csv'''
         cls.all.clear()  # очистка списка перед загрузкой данных из файла csv
+        try:
+            with codecs.open(filename, 'r', encoding='windows-1251', errors='replace') as f:
+                reader = csv.DictReader(f)
+                items = []
+                for row in reader:
+                    if 'name' not in row or 'price' not in row or 'quantity' not in row:
+                        raise InstantiateCSVError("Файл items.csv поврежден")
+                    name = row['name']
+                    price = float(row['price'])
+                    quantity = int(row['quantity'])
+                    item = cls(name, price, quantity)
+                    items.append(item)
 
-        with codecs.open(filename, 'r', encoding='windows-1251', errors='replace') as f:
-            reader = csv.DictReader(f)
-            items = []
-            for row in reader:
-                name = row['name']
-                price = float(row['price'])
-                quantity = int(row['quantity'])
-                item = cls(name, price, quantity)
-                items.append(item)
+                cls.all = items
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует файл items.csv")
 
-            cls.all = items
 
     @staticmethod
     def string_to_number(str_number: str) -> int:

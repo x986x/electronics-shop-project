@@ -56,3 +56,12 @@ def test_str():
     item = Item('test', 1000, 30)
 
     assert str(item) == 'test'
+
+def test_file_not_found_error():
+    with pytest.raises(FileNotFoundError, match="Отсутствует файл items.csv"):
+        Item.instantiate_from_csv("items.csv")
+
+
+def test_instantiate_csv_error():
+    with pytest.raises(InstantiateCSVError, match="Файл items.csv поврежден"):
+        Item.instantiate_from_csv("items.csv ")
