@@ -1,7 +1,7 @@
 import pytest
 
 import src.item
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 
 @pytest.fixture
 def make_item():
@@ -57,6 +57,7 @@ def test_str():
 
     assert str(item) == 'test'
 
+
 def test_file_not_found_error():
     with pytest.raises(FileNotFoundError, match="Отсутствует файл items.csv"):
         Item.instantiate_from_csv("items.csv")
@@ -64,4 +65,4 @@ def test_file_not_found_error():
 
 def test_instantiate_csv_error():
     with pytest.raises(InstantiateCSVError, match="Файл items.csv поврежден"):
-        Item.instantiate_from_csv("items.csv ")
+        Item.instantiate_from_csv("../src/items.csv")
