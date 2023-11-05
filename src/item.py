@@ -95,13 +95,15 @@ class Item:
                 reader = csv.DictReader(f)
                 items = []
                 for row in reader:
-                    if 'name' not in row or 'price' not in row or 'quantity' not in row:
+                    #if 'name' not in row or 'price' not in row or 'quantity' not in row:
+                    if row['name'] == '' or row['price'] == '' or row['quantity'] == '':
                         raise InstantiateCSVError("Файл items.csv поврежден")
-                    name = row['name']
-                    price = float(row['price'])
-                    quantity = int(row['quantity'])
-                    item = cls(name, price, quantity)
-                    items.append(item)
+                    else:
+                        name = row['name']
+                        price = float(row['price'])
+                        quantity = int(row['quantity'])
+                        item = cls(name, price, quantity)
+                        items.append(item)
 
                 cls.all = items
         except FileNotFoundError:
